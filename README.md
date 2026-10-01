@@ -24,4 +24,18 @@ INNER JOIN film_category
 INNER JOIN category
     ON film_category.category_id = category.category_id;
 
-<img width="1365" height="720" alt="image" src="https://github.com/user-attachments/assets/9b120fff-1a0e-4533-973d-1e32d5724b94" />
+
+---
+
+## 2. Indicateurs Clés et Requêtes Métier (Agrégations)
+### A. Répartition des films par genre (Volumétrie)
+SELECT 
+    category.name AS 'Genre de film',
+    COUNT(film.film_id) AS 'Nombre de films'
+FROM film
+INNER JOIN film_category
+    ON film.film_id = film_category.film_id
+INNER JOIN category
+    ON film_category.category_id = category.category_id
+GROUP BY category.name
+ORDER BY 'Nombre de films' DESC;
