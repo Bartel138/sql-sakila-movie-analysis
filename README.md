@@ -27,6 +27,10 @@ INNER JOIN category
 
 ---
 
+--- ## 2. Indicateurs Clés et Requêtes Métier (Agrégations)
+### A. Répartition des films par genre (Volumétrie)
+
+
 ## 2. Indicateurs Clés et Requêtes Métier (Agrégations)
 ### A. Répartition des films par genre (Volumétrie)
 SELECT 
