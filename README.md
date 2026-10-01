@@ -10,6 +10,7 @@ La difficulté majeure de ce type de base de données réside dans le fait que l
 
 Pour relever ce défi, la première étape indispensable a consisté à assembler les tables pour obtenir un tableau global et structuré, regroupant les informations clés de chaque film et son genre associé :
 
+
 ```sql
 SELECT 
     film.title AS 'Titre', 
@@ -30,6 +31,7 @@ INNER JOIN category
 À partir de ce socle solide, nous avons basculé sur la deuxième partie de l'analyse en utilisant les fonctions d'agrégation (COUNT, SUM, AVG) associées à GROUP BY et ORDER BY pour faire parler les données :
 
 A. Volumétrie : Nombre de films par genre
+
 ```sql
 SELECT 
     category.name AS 'Genre de film',
