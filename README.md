@@ -39,3 +39,51 @@ INNER JOIN category
     ON film_category.category_id = category.category_id
 GROUP BY category.name
 ORDER BY 'Nombre de films' DESC;
+
+### B. Segmentation par classification (Rating)
+SELECT
+    film.rating AS 'Notation',
+    COUNT(film.film_id) AS 'Nombre de films'
+FROM film
+INNER JOIN film_category
+    ON film.film_id = film_category.film_id
+INNER JOIN category
+    ON film_category.category_id = category.category_id
+GROUP BY film.rating
+ORDER BY 'Nombre de films' DESC;
+
+### C. Analyse de la durée de location par genre
+SELECT
+    category.name AS 'Genre de film',
+    SUM(film.rental_duration) AS 'Durée totale'
+FROM film
+INNER JOIN film_category
+    ON film.film_id = film_category.film_id
+INNER JOIN category
+    ON film_category.category_id = category.category_id
+GROUP BY category.name
+ORDER BY SUM(rental_duration) DESC;
+
+### D. Taux de location moyen par catégorie
+SELECT
+    category.name AS 'Genre de film',
+    AVG(rental_rate) AS 'Moyenne taux de location'
+FROM film
+INNER JOIN film_category
+    ON film.film_id = film_category.film_id
+INNER JOIN category
+    ON film_category.category_id = category.category_id
+GROUP BY category.name
+ORDER BY AVG(rental_rate) DESC;
+
+### E. Évaluation financière du coût de remplacement
+SELECT
+    category.name AS 'Genre de film',
+    SUM(replacement_cost) AS 'Coût de remplacement'
+FROM film
+INNER JOIN film_category
+    ON film.film_id = film_category.film_id
+INNER JOIN category
+    ON film_category.category_id = category.category_id
+GROUP BY category.name
+ORDER BY SUM(replacement_cost) DESC;
