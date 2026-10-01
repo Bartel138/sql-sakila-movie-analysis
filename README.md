@@ -25,3 +25,19 @@ INNER JOIN film_category
     ON film.film_id = film_category.film_id
 INNER JOIN category
     ON film_category.category_id = category.category_id;
+
+3. L'Analyse Métier & Les Indicateurs Clés (Requêtes Agrégées)
+À partir de ce socle solide, nous avons basculé sur la deuxième partie de l'analyse en utilisant les fonctions d'agrégation (COUNT, SUM, AVG) associées à GROUP BY et ORDER BY pour faire parler les données :
+
+A. Volumétrie : Nombre de films par genre
+
+SELECT 
+    category.name AS 'Genre de film',
+    COUNT(film.film_id) AS 'Nombre de films'
+FROM film
+INNER JOIN film_category
+    ON film.film_id = film_category.film_id
+INNER JOIN category
+    ON film_category.category_id = category.category_id
+GROUP BY category.name
+ORDER BY 'Nombre de films' DESC;
