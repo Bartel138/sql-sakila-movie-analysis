@@ -1,15 +1,12 @@
 # Cas Pratique SQL & Business Intelligence : Analyse du Catalogue de Films (Base Sakila)
 
-## 1. Contexte du projet
-Dans le cadre de la gestion stratégique d'un catalogue de vidéoclub (basé sur la célèbre base de données relationnelle **Sakila**), l'objectif est d'analyser la structure, la volumétrie et les grandes tendances du catalogue de films. En tant que Data Analyst, il s'agit d'aider l'équipe de management à mieux comprendre la répartition de l'offre pour orienter les décisions d'achat, de gestion des stocks et de mise en avant des produits.
+## Contexte et Objectif
+Ce cas pratique s'adresse aux Data Analysts et équipes Business Intelligence souhaitant exploiter la base relationnelle **Sakila**. L'objectif est d'extraire la structure du catalogue, de mesurer la volumétrie et d'analyser les indicateurs clés de performance (KPIs).
 
 ---
 
-## 2. Le Premier Grand Défi : La construction du tableau de base (Modélisation relationnelle)
-La difficulté majeure de ce type de base de données réside dans le fait que les films et leurs catégories ne sont pas directement liés par une simple colonne, mais via une **table de liaison** (`film_category`). 
-
-Pour relever ce défi, la première étape indispensable a consisté à assembler les tables pour obtenir un tableau global et structuré, regroupant les informations clés de chaque film et son genre associé :
-
+## 1. Modélisation Relationnelle : La Table de Liaison
+Pour relier les tables `film` et `category` sans tomber dans des jointures en cascade complexes, on utilise la table intermédiaire `film_category`.
 
 ```sql
 SELECT 
@@ -26,20 +23,3 @@ INNER JOIN film_category
     ON film.film_id = film_category.film_id
 INNER JOIN category
     ON film_category.category_id = category.category_id;
-
-3. L'Analyse Métier & Les Indicateurs Clés (Requêtes Agrégées)
-À partir de ce socle solide, nous avons basculé sur la deuxième partie de l'analyse en utilisant les fonctions d'agrégation (COUNT, SUM, AVG) associées à GROUP BY et ORDER BY pour faire parler les données :
-
-A. Volumétrie : Nombre de films par genre
-
-```sql
-SELECT 
-    category.name AS 'Genre de film',
-    COUNT(film.film_id) AS 'Nombre de films'
-FROM film
-INNER JOIN film_category
-    ON film.film_id = film_category.film_id
-INNER JOIN category
-    ON film_category.category_id = category.category_id
-GROUP BY category.name
-ORDER BY 'Nombre de films' DESC;
