@@ -23,3 +23,5 @@ INNER JOIN film_category
     ON film.film_id = film_category.film_id
 INNER JOIN category
     ON film_category.category_id = category.category_id;
+
+<img width="1365" height="720" alt="image" src="https://github.com/user-attachments/assets/9b120fff-1a0e-4533-973d-1e32d5724b94" />
