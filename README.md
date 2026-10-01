@@ -30,7 +30,7 @@ INNER JOIN category
 À partir de ce socle solide, nous avons basculé sur la deuxième partie de l'analyse en utilisant les fonctions d'agrégation (COUNT, SUM, AVG) associées à GROUP BY et ORDER BY pour faire parler les données :
 
 A. Volumétrie : Nombre de films par genre
-
+```sql
 SELECT 
     category.name AS 'Genre de film',
     COUNT(film.film_id) AS 'Nombre de films'
