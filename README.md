@@ -38,3 +38,33 @@ INNER JOIN film_category
     ON film.film_id = film_category.film_id
 INNER JOIN category
     ON film_category.category_id = category.category_id;
+
+## 5. Analyse des Objectifs Métier (Focus Top 5)
+
+### A. Volumétrie : Le Top 5 des Genres de Films
+Pour structurer notre analyse sans noyer le management, nous nous concentrons exclusivement sur le **Top 5** des catégories les plus représentées du catalogue. 
+
+D'après les données extraites, le volume de films se concentre principalement sur les genres suivants :
+* **Animation** (66 films)
+* **Action** (64 films)
+* **Children / Enfants** (60 films)
+* **Comedy / Comédie** (58 films)
+* **Classics / Classiques** (57 films)
+
+#### Interprétation Métier
+Cette forte concentration montre qu'historiquement, la stratégie d'acquisition de l'entreprise a largement favorisé ces cinq segments (notamment l'animation, l'action et le public jeunesse). 
+Cependant, un volume élevé ne garantit pas la rentabilité ou l'appétence réelle des clients. La question stratégique est donc de vérifier si ces genres les plus présents sont également ceux qui performent le mieux et génèrent le plus de valeur pour l'entreprise.
+
+#### Requête SQL : Le Top 5 des genres les plus représentés
+```sql
+SELECT 
+    category.name AS 'Genre de film',
+    COUNT(film.film_id) AS 'Nombre de films'
+FROM film
+INNER JOIN film_category
+    ON film.film_id = film_category.film_id
+INNER JOIN category
+    ON film_category.category_id = category.category_id
+GROUP BY category.name
+ORDER BY 'Nombre de films' DESC
+LIMIT 5;
