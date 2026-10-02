@@ -13,3 +13,28 @@ La société **Sakila** (location de films physiques) souhaite auditer son catal
 * **Vision fragmentée :** Absence de structure relationnelle consolidée pour analyser globalement l'offre et la demande.
 * **Infobésité :** Listes brutes interminables empêchant toute lecture rapide et décision managériale.
 * **Manque de hiérarchisation :** Impossibilité d'isoler instantanément les Top/Flop segments pour cibler les actions correctives.
+
+## 4. La Modélisation Relationnelle : Création du Socle de Données
+
+### Le Défi des Données Dispersées
+À l'origine, aucune table unique ne permettait de relier directement les films à leurs catégories respectives, rendant toute analyse globale impossible. Il a donc fallu concevoir une vue relationnelle consolidée en s'appuyant sur la table intermédiaire `film_category`.
+
+### Le Choix des Jointures (`INNER JOIN`)
+Pour construire ce tableau de travail, nous avons privilégié l'utilisation d'un `INNER JOIN` plutôt qu'un `LEFT` ou `RIGHT JOIN`. Le choix est simple : seuls les films rattachés à une catégorie valide nous intéressent pour notre analyse métier. Cela permet d'exclure d'emblée toute anomalie de structure et d'optimiser les performances de la requête.
+
+### Requête SQL : Constitution de la Table de Travail
+```sql
+SELECT 
+    film.title AS 'Titre', 
+    film.description, 
+    film.rental_rate AS 'Taux de location',
+    film.replacement_cost AS 'Coût de remplacement',
+    film.rating AS 'Notation', 
+    film.rental_duration AS 'Temps de location', 
+    film_category.category_id AS 'Identifiant Categorie',
+    category.name AS 'Genre de film'
+FROM film
+INNER JOIN film_category
+    ON film.film_id = film_category.film_id
+INNER JOIN category
+    ON film_category.category_id = category.category_id;
