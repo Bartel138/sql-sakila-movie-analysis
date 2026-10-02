@@ -68,3 +68,63 @@ INNER JOIN category
 GROUP BY category.name
 ORDER BY 'Nombre de films' DESC
 LIMIT 5;
+
+
+## 6. Analyse Stratégique : Le Taux de Location Moyen (Top 5)
+
+Pour analyser la politique tarifaire de l'entreprise sans s'encombrer d'une liste exhaustive, nous ciblons le **Top 5** des catégories affichant le taux de location moyen le plus élevé :
+* **Games** : 3,25
+* **Travel** : 3,23
+* **Sci-Fi** : 3,21
+* **Comedy** : 3,16
+* **Sport** : 3,12
+
+### Interprétation Métier
+Cette analyse confirme une nouvelle fois le décalage stratégique déjà observé : les genres les plus représentés en volume dans le catalogue ne sont pas systématiquement ceux qui affichent les taux unitaires les plus forts. Des catégories comme *Games*, *Travel* ou *Sci-Fi* portent une valeur tarifaire supérieure, prouvant que la quantité de stock ne dicte pas la rentabilité unitaire. Le management dispose ainsi d'un levier clair pour rééquilibrer la politique d'acquisition vers ces segments à plus forte valeur.
+
+### Requête SQL : Taux de location moyen par genre (Top 5)
+```sql
+SELECT
+    category.name AS 'Genre de film',
+    AVG(rental_rate) AS 'Moyenne taux de location'
+FROM film
+INNER JOIN film_category
+    ON film.film_id = film_category.film_id
+INNER JOIN category
+    ON film_category.category_id = category.category_id
+GROUP BY category.name
+ORDER BY AVG(rental_rate) DESC
+LIMIT 5;
+
+
+## 6. Analyse Stratégique : Le Taux de Location Moyen (Top 5)
+
+Pour analyser la politique tarifaire de l'entreprise sans s'encombrer d'une liste exhaustive, nous ciblons le **Top 5** des catégories affichant le taux de location moyen le plus élevé :
+* **Games** : 3,25
+* **Travel** : 3,23
+* **Sci-Fi** : 3,21
+* **Comedy** : 3,16
+* **Sport** : 3,12
+
+### Interprétation Métier
+Cette analyse confirme une nouvelle fois le décalage stratégique déjà observé : les genres les plus représentés en volume dans le catalogue ne sont pas systématiquement ceux qui affichent les taux unitaires les plus forts. Des catégories comme *Games*, *Travel* ou *Sci-Fi* portent une valeur tarifaire supérieure, prouvant que la quantité de stock ne dicte pas la rentabilité unitaire. Le management dispose ainsi d'un levier clair pour rééquilibrer la politique d'acquisition vers ces segments à plus forte valeur.
+
+### Requête SQL : Taux de location moyen par genre (Top 5)
+```sql
+SELECT
+    category.name AS 'Genre de film',
+    AVG(rental_rate) AS 'Moyenne taux de location'
+FROM film
+INNER JOIN film_category
+    ON film.film_id = film_category.film_id
+INNER JOIN category
+    ON film_category.category_id = category.category_id
+GROUP BY category.name
+ORDER BY AVG(rental_rate) DESC
+LIMIT 5;
+
+
+Étape 1 : On analyse le catalogue macro (les genres, les volumes, les durées) avec les tables de base (film, film_category, category). On identifie des déséquilibres (ex: l'animation est très présente, mais d'autres genres comme Foreign ou Sport retiennent plus l'attention).
+Étape 2 : On se heurte à une limite logique : ce premier niveau ne nous dit pas combien de fois les films ont été réellement loués. On fait donc évoluer notre modèle de données en allant chercher les transactions (inventory, rental).
+
+Étape 3 (potentielle) : On pousse encore plus loin pour lier le chiffre d'affaires réel (payment) et affiner la rentabilité.
