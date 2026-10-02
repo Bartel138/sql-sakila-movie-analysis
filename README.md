@@ -1,3 +1,4 @@
+Markdown
 # Audit de Performance du Catalogue Sakila : Projet Data Analysis & Business Intelligence
 
 ## 1. Contexte Métier
@@ -22,8 +23,8 @@ La société **Sakila** (location de films physiques) souhaite auditer son catal
 À l'origine, aucune table unique ne permettait de relier directement les films à leurs catégories respectives, rendant toute analyse globale impossible. Il a donc fallu concevoir une vue relationnelle consolidée en s'appuyant sur la table intermédiaire `film_category`.
 
 ### Le Choix des Jointures
-* **Pour l'offre (Catalogue) :** Utilisation d'un `INNER JOIN` entre `film`, `film_category` et `category` pour isoler les films valides rattachés à un genre.
-* **Pour l'activité (Transition vers l'Étape 2 & 3) :** Utilisation méthodique de `LEFT JOIN` partant de la table maîtresse (`film`) pour l'inventaire et les transactions, garantissant une vision exhaustive sans perte de données (gestion des films orphelins).
+- **Pour l'offre (Catalogue) :** Utilisation d'un `INNER JOIN` entre `film`, `film_category` et `category` pour isoler les films valides rattachés à un genre.
+- **Pour l'activité (Transition vers l'Étape 2 & 3) :** Utilisation méthodique de `LEFT JOIN` partant de la table maîtresse (`film`) pour l'inventaire et les transactions, garantissant une vision exhaustive sans perte de données (gestion des films orphelins).
 
 ### Requête SQL : Constitution de la Table de Travail Initiale
 ```sql
@@ -41,7 +42,6 @@ INNER JOIN film_category
     ON film.film_id = film_category.film_id
 INNER JOIN category
     ON film_category.category_id = category.category_id;
-
 5. Étape 1 : Analyse de l'Offre et Volumétrie (Le Top 5 des Genres)
 Pour structurer notre analyse sans noyer le management, nous nous concentrons exclusivement sur le Top 5 des catégories les plus représentées du catalogue :
 
